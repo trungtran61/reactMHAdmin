@@ -8,8 +8,10 @@ class App extends Component {
     reportData: []
   }
 
-  componentDidMount() {
-    axios.get('http://localhost:60127/api/reports/gettippingexceptions?fromDate=01/01/2019&toDate=12/31/2019')
+  componentDidMount() {  
+
+    axios.get('http://localhost:60127/api/reports/gettippingexceptions?fromDate=01/01/2019&toDate=12/31/2019',    
+      { withCredentials: true })
       .then(response => {
         this.setState(
           {
