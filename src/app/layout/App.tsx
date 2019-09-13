@@ -1,24 +1,34 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import axios from 'axios';
-import { Header, Icon, Container } from 'semantic-ui-react'
-import { ITippingException } from '../models/tippingexception';
+import { Container } from 'semantic-ui-react'
+import { ITippingException, ITippingExceptionDates } from '../models/tippingexception';
 import NavBar from '../../features/nav/NavBar';
-import TippingExceptions from '../../features/reports/TippingExceptions';
+import TippingExceptions from '../../features/reports/tipping-exceptions/TippingExceptions';
+import agent from '../api/agent';
 /*
 interface IState {
   tippingExceptions: ITippingException[]
 }
 */
 const App = () => {
-  const [tippingExceptions, setTippingExceptions] = useState<ITippingException[]>([])
+  const [tippingExceptions, setTippingExceptions] = useState<ITippingException[]>([]);
+  
+  const handleTippingExceptionsRequest = (tippingExceptionDates: ITippingExceptionDates) =>
+  {
+    agent.TippingExceptions.list(tippingExceptionDates)
+    .then(response => {
+      setTippingExceptions(response)
+    });
+  }
 
+/*
   useEffect(() => {
-    axios.get<ITippingException[]>('http://localhost:60127/api/reports/gettippingexceptions?fromDate=01/01/2019&toDate=12/31/2019',
-      { withCredentials: true })
-      .then(response => {
-        setTippingExceptions(response.data)
-      });
+    agent.TippingExceptions.list({fromDate:'01/01/2019',toDate:'12/31/2019'})
+    .then(response => {
+      setTippingExceptions(response)
+    });      
+   
   },[]);
+*/
   {
     /*
       componentDidMount() {  
@@ -39,7 +49,10 @@ const App = () => {
       <Fragment>
         <NavBar />
         <Container style={{marginTop: '1em'}}>      
-        <TippingExceptions tippingExceptions={tippingExceptions} />
+        <TippingExceptions 
+          tippingExceptions={tippingExceptions} 
+          tippingExceptionsRequest={handleTippingExceptionsRequest}      
+          />
         </Container>
       </Fragment>
      

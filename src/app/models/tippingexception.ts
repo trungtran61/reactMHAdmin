@@ -6,3 +6,9 @@ jobRate: number;
 tipAmount: number;
 completionDate: Date;
 }
+
+export interface ITippingExceptionDates
+{
+    fromDate: string;
+    toDate: string;
+}
