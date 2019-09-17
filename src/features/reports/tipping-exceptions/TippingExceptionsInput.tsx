@@ -7,6 +7,7 @@ const TippingExceptionsInput: React.FC = () => {
   const reportsStore = useContext(MHAdminReportsStore);
   const {tippingExceptionDates, getTippingExceptions, isSubmitting} = reportsStore;
 
+  // set default input dates
   useEffect(() => {
     let currentTime = new Date();
     currentTime.setDate(currentTime.getDate() - 30);

@@ -9,16 +9,19 @@ class MHAdminReportsStore {
     @observable recordCount = 0;   
     @observable tippingExceptions: ITippingException[] = [];
          
-    @action getTippingExceptions = () => {
+    @action getTippingExceptions = async () => {
        this.isSubmitting = true;
-      
-    agent.TippingExceptions.list(this.tippingExceptionDates)
-      .then(tippingExceptions => {
+    
+       try {           
+        const tippingExceptions = await agent.TippingExceptions.list(this.tippingExceptionDates);
+        this.tippingExceptions = tippingExceptions;
         this.recordCount = tippingExceptions.length;
-        this.tippingExceptions = tippingExceptions;       
-      })
-      .finally(() => this.isSubmitting = false);
-    }
+        this.isSubmitting = false;
+      } catch (error) {
+        this.isSubmitting = false;
+        console.log(error);
+      }
+    }    
 }
 
 export default createContext(new MHAdminReportsStore())
