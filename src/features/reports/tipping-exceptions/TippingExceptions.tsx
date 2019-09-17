@@ -1,51 +1,15 @@
-import React, { useState } from "react";
-import { Table, Header, Container, Form, Button } from "semantic-ui-react";
-import { ITippingException, ITippingExceptionDates } from "../../../app/models/tippingexception";
+import React, { useContext } from "react";
+import { Table, Container } from "semantic-ui-react";
+import { observer } from "mobx-react-lite";
+import MHAdminReportsStore from "../../../app/stores/MHAdminReportsStore";
 
-interface IProps {
-  tippingExceptions: ITippingException[];  
-  tippingExceptionsRequest: (tippingExceptionDates: ITippingExceptionDates) => void;
-}
-
-const TippingExceptions: React.FC<IProps> = ({
-  tippingExceptions,
-  tippingExceptionsRequest
-}) => {
-  
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
-  
-  const handleSubmit = () => {
-    let inputs = {
-      ...tippingExceptionsRequest,
-      fromDate : fromDate,
-      toDate: toDate
-    }
-    tippingExceptionsRequest(inputs);
-  }
+const TippingExceptions: React.FC = ({  
+}) => {  
+  const reportsStore = useContext(MHAdminReportsStore);
+  const {tippingExceptions:tippingExceptions} = reportsStore;
 
   return (
-    <Container>
-      <Header as="h4">
-        <Header.Content>Tipping Exceptions</Header.Content>
-      </Header>
-      <Form>
-        <Form.Group widths="equal">
-          <Form.Field>
-            <label>From Date</label>
-            <input type="date" placeholder="From Date" onChange={event => setFromDate(event.target.value)} />
-          </Form.Field>
-          <Form.Field>
-            <label>To Date</label>
-            <input type="date" placeholder="To Date" onChange={event => setToDate(event.target.value)} />
-          </Form.Field>
-          <Form.Field>
-            <label>&nbsp;</label>
-            <Button onClick={handleSubmit}
-              >Submit</Button>
-          </Form.Field>
-        </Form.Group>
-      </Form>
+    <Container>          
       <Table singleLine>
         <Table.Header>
           <Table.Row>
@@ -59,7 +23,7 @@ const TippingExceptions: React.FC<IProps> = ({
 
         <Table.Body>
           {tippingExceptions.map(tippingException => (
-            <Table.Row>
+            <Table.Row key={tippingException.jobNumber}>
               <Table.Cell>{tippingException.jobNumber}</Table.Cell>
               <Table.Cell>{tippingException.serviceProvider}</Table.Cell>
               <Table.Cell>{tippingException.jobRate}</Table.Cell>
@@ -73,4 +37,4 @@ const TippingExceptions: React.FC<IProps> = ({
   );
 };
 
-export default TippingExceptions;
+export default observer(TippingExceptions);
