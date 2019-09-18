@@ -1,16 +1,15 @@
 import React, { useContext, Fragment } from "react";
 import { Container } from "semantic-ui-react";
-import NavBar from "../../features/nav/NavBar";
-import TippingExceptions from "../../features/reports/tipping-exceptions/TippingExceptions";
-import TippingExceptionsInput from "../../features/reports/tipping-exceptions/TippingExceptionsInput";
-import NoRecords from "../../features/reports/NoRecords";
-import RecordsCount from "../../features/reports/RecordsCount";
-import MHAdminReportsStore from "../stores/MHAdminReportsStore";
 import { observer } from "mobx-react-lite";
+import { Route } from "react-router-dom";
+
+import NavBar from "../../features/nav/NavBar";
+import HomePage from '../../features/home/HomePage';
+import TippingExceptions from "../../features/reports/tipping-exceptions/TippingExceptions";
 
 const App = () => {
-  const reportsStore = useContext(MHAdminReportsStore);  
-  const {recordCount} = reportsStore; 
+  //const reportsStore = useContext(TippingExceptionsReportStore);  
+  //const {recordCount} = reportsStore; 
  
   //if (loading) return <LoadingComponent content='Retrieving data...' />
   /*
@@ -42,12 +41,8 @@ const App = () => {
       <Fragment>
         <NavBar />
         <Container style={{ marginTop: "1em" }}>
-          <TippingExceptionsInput />
-          {recordCount > 0 && (
-            <TippingExceptions />
-          )}
-          {recordCount == 0 && <NoRecords />}
-          {recordCount > 0 && <RecordsCount recordCount={recordCount} />}
+          <Route exact path='/' component={HomePage} />
+          <Route path='/TippingExceptions' component={TippingExceptions} />
         </Container>
       </Fragment>
     );

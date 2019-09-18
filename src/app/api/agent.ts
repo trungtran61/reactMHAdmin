@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { ITippingException, ITippingExceptionDates } from '../models/tippingexception';
 import { resolve } from 'dns';
+import { IUser } from '../models/user';
 
 axios.defaults.baseURL = 'http://localhost:60127/api';
 
@@ -11,7 +12,12 @@ const sleep = (ms: number) => (response:AxiosResponse)=>
 
 const requests = {
     get: (url: string) => axios.get(url).then(sleep(100)).then(responseBody),
-    post: (url: string, body: {}) => axios.post(url, body).then(responseBody)
+    post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
+    postWithCreds: (url: string, body: {}) => axios.post(url, body, { withCredentials: true }).then(responseBody)
+}
+
+const User = {
+    login: () : Promise<IUser> => requests.postWithCreds(`/user/login`,{})
 }
 
 const TippingExceptions = {
@@ -20,5 +26,6 @@ const TippingExceptions = {
 }
 
 export default{
-    TippingExceptions
+    TippingExceptions,
+    User
 }

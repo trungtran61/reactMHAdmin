@@ -1,18 +1,28 @@
 import React, { useEffect, useContext } from "react";
 import { Form, Button } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
-import MHAdminReportsStore from "../../../app/stores/MHAdminReportsStore";
+import TippingExceptionsReportStore from "../../../app/stores/tippingExceptionsReportStore";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 
 const TippingExceptionsInput: React.FC = () => {
-  const reportsStore = useContext(MHAdminReportsStore);
-  const {tippingExceptionDates, getTippingExceptions, isSubmitting} = reportsStore;
+  const rootStore = useContext(RootStoreContext);
+  const {
+    tippingExceptionDates,
+    isSubmitting,
+    getTippingExceptions,    
+    setTippingExceptionDates,
+    setTippingExceptionFromDate,
+    setTippingExceptionToDate
+  } = rootStore.tippingExceptionsReportStore;
 
   // set default input dates
   useEffect(() => {
     let currentTime = new Date();
     currentTime.setDate(currentTime.getDate() - 30);
-    tippingExceptionDates.fromDate = currentTime.toISOString().split("T")[0];
-    tippingExceptionDates.toDate = new Date().toISOString().split("T")[0];
+    setTippingExceptionDates(
+      currentTime.toISOString().split("T")[0],
+      new Date().toISOString().split("T")[0]
+    );
   }, []);
 
   return (
@@ -25,7 +35,9 @@ const TippingExceptionsInput: React.FC = () => {
             type="date"
             placeholder="From Date"
             value={tippingExceptionDates.fromDate}
-            onChange={event => tippingExceptionDates.fromDate = event.target.value}
+            onChange={event =>
+              (setTippingExceptionFromDate(event.target.value))
+            }
           />
         </Form.Field>
         <Form.Field>
@@ -34,12 +46,16 @@ const TippingExceptionsInput: React.FC = () => {
             type="date"
             placeholder="To Date"
             value={tippingExceptionDates.toDate}
-            onChange={event => tippingExceptionDates.toDate = event.target.value}
+            onChange={event =>
+              (setTippingExceptionToDate(event.target.value))
+            }
           />
         </Form.Field>
         <Form.Field>
           <label>&nbsp;</label>
-          <Button loading={isSubmitting} onClick={getTippingExceptions}>Submit</Button>
+          <Button loading={isSubmitting} onClick={getTippingExceptions}>
+            Submit
+          </Button>
         </Form.Field>
       </Form.Group>
     </Form>
