@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { Container } from 'semantic-ui-react';
+import { Container, Menu } from 'semantic-ui-react';
 import { RootStoreContext } from '../../app/stores/rootStore';
+import { NavLink } from 'react-router-dom';
 
 const HomePage = () => {
     const rootStore = useContext(RootStoreContext);
@@ -12,8 +13,13 @@ const HomePage = () => {
       
     return (
         <Container style={{ marginTop: "1em" }}>
-            <h1>Home</h1>
-        </Container>
+            <h1>Home</h1>        
+        <Menu>
+        <Container>
+          <Menu.Item name="Home" as={NavLink} to="/tippingexceptions" />
+          </Container>
+          </Menu>
+          </Container>
     );
 }
 
