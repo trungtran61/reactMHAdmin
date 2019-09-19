@@ -5,11 +5,11 @@ import { RootStoreContext } from "../../app/stores/rootStore";
 
 const NavBar: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const { user, logout} = rootStore.userStore;
+  const { user, logout } = rootStore.userStore;
 
   return (
     <div>
-      <Menu inverted>
+      <Menu fixed='top' inverted>
         <Container>
           <Menu.Item
             header
@@ -50,6 +50,11 @@ const NavBar: React.FC = () => {
           <Menu.Item name="Cross Contact">
             <a href="https://uhauld.net/home/">Cross Contact</a>
           </Menu.Item>
+          <Menu.Item position='right'>             
+              <Dropdown >
+                <Dropdown.Item onClick={logout} text='Logout' icon='power' />
+              </Dropdown>
+           </Menu.Item>
         </Container>
       </Menu>
 
@@ -68,13 +73,6 @@ const NavBar: React.FC = () => {
           <Menu.Item name="Admin">
             <a href="https://uhauld.net/home/">Admin</a>
           </Menu.Item>
-         {user && (
-             <Menu.Item position='right'>             
-              <Dropdown >
-
-              </Dropdown>
-           </Menu.Item>
-         )}
         </Container>
       </Menu>
     </div>

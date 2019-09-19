@@ -5,7 +5,10 @@ import { IUser } from '../models/user';
 axios.defaults.baseURL = 'http://localhost:60127/api';
 axios.interceptors.request.use((config) => {
     const token = window.localStorage.getItem('MHAdminToolJWT');
-    if (token) config.headers.Authorization = `Bearer ${token}`;
+    if (token) 
+        config.headers.Authorization = `Bearer ${token}`;
+    else
+        window.location.replace('https://uhauld.net');       
     return config
 }, error => {
     return Promise.reject(error);

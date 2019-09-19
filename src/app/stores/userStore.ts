@@ -19,15 +19,16 @@ export default class UserStore {
             runInAction(() => {
                 this.user = user;
             }) 
-            this.rootStore.commonStore.setToken(user.token);    
+            this.rootStore.commonStore.setToken(user.token);                
         } 
-        catch (error) {
-            console.log(error)
+        catch (error) {                        
+            return error;
         }
     }
 
     @action logout = () => {
         this.rootStore.commonStore.setToken(null);
         this.user = null;
+        window.location.replace('https://uhauld.net')     
     }
 }
