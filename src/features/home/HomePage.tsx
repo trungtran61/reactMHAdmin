@@ -16,7 +16,7 @@ const HomePage = () => {
             <h1>Home</h1>        
         <Menu>
         <Container>
-          <Menu.Item name="Home" as={NavLink} to="/tippingexceptions" />
+          <Menu.Item name="Tipping Exceptions" as={NavLink} to="/tippingexceptions" />
           </Container>
           </Menu>
           </Container>

@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 import { ITippingException, ITippingExceptionDates } from '../models/tippingexception';
-import { resolve } from 'dns';
 import { IUser } from '../models/user';
 
 axios.defaults.baseURL = 'http://localhost:60127/api';

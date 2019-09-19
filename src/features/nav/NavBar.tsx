@@ -1,8 +1,12 @@
-import React from "react";
-import { Menu, Container } from "semantic-ui-react";
+import React, { useContext } from "react";
+import { Menu, Container, Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
+import { RootStoreContext } from "../../app/stores/rootStore";
 
-const NavBar = () => {
+const NavBar: React.FC = () => {
+  const rootStore = useContext(RootStoreContext);
+  const { user, logout} = rootStore.userStore;
+
   return (
     <div>
       <Menu inverted>
@@ -64,6 +68,13 @@ const NavBar = () => {
           <Menu.Item name="Admin">
             <a href="https://uhauld.net/home/">Admin</a>
           </Menu.Item>
+         {user && (
+             <Menu.Item position='right'>             
+              <Dropdown >
+
+              </Dropdown>
+           </Menu.Item>
+         )}
         </Container>
       </Menu>
     </div>
