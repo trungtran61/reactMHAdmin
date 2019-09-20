@@ -2,76 +2,86 @@ import React, { useContext } from "react";
 import { Menu, Container, Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { RootStoreContext } from "../../app/stores/rootStore";
+import { AppConfiguration } from "read-appsettings-json";
+
+const apiEndPoint = AppConfiguration.Setting().apiEndPoint;
+const uHaulNetRootUrl = AppConfiguration.Setting().uHaulNetRootUrl;
 
 const NavBar: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
   const { user, logout } = rootStore.userStore;
 
   return (
-    <div>
-      <Menu fixed='top' inverted>
-        <Container>
-          <Menu.Item
-            header
-            style={{ whiteSpace: "nowrap", width: 140, height: 40 }}
-          >
-            <a href="https://uhauld.net/home/">
-              <img src="assets/logo.svg" alt="logo" />
-              uhaul.net
-            </a>
-          </Menu.Item>
-          <Menu.Item name="Reports">
-            <a href="https://uhauld.net/home/">Reports</a>
-          </Menu.Item>
-          <Menu.Item name="Equipment">
-            <a href="https://uhauld.net/home/">Equipment</a>
-          </Menu.Item>
-          <Menu.Item name="Publications">
-            <a href="https://uhauld.net/home/">Publications</a>
-          </Menu.Item>
-          <Menu.Item name="Multimedia">
-            <a href="https://uhauld.net/home/">Multimedia</a>
-          </Menu.Item>
-          <Menu.Item name="Tools">
-            <a href="https://uhauld.net/home/">Tools</a>
-          </Menu.Item>
-          <Menu.Item name="HR">
-            <a href="https://uhauld.net/home/">HR</a>
-          </Menu.Item>
-          <Menu.Item name="Links">
-            <a href="https://uhauld.net/home/">Links</a>
-          </Menu.Item>
-          <Menu.Item name="Boards">
-            <a href="https://uhauld.net/home/">Boards</a>
-          </Menu.Item>
-          <Menu.Item name="Sustainability">
-            <a href="https://uhauld.net/home/">Sustainability</a>
-          </Menu.Item>
-          <Menu.Item name="Cross Contact">
-            <a href="https://uhauld.net/home/">Cross Contact</a>
-          </Menu.Item>
-          <Menu.Item position='right' onClick={logout} text='Logout' icon='power' />                              
-        </Container>
+    <Container>
+      <header>
+        <div className="fixed">
+          <div className="contain-to-grid">
+            <nav className="top-bar" data-options="is_hover:false">
+              <ul className="title-area">
+                <li className="toggle-topbar menu-icon">
+                  <a href="#">
+                    <span></span>
+                  </a>
+                </li>
+                <li className="name">
+                  <h1>
+                    <a href="/home/">uhaul.net</a>
+                  </h1>
+                </li>
+                </ul>
+                <section className="top-bar-section">
+                  <ul className="left">
+                    <li><a href={uHaulNetRootUrl + "/reports/reportfactory/"}  className="reports_tab" >Reports</a></li>
+                    <li><a href={ uHaulNetRootUrl + "/equipment/search/default.aspx" } className="reports_tab">Equipment</a></li>
+                    <li><a href={uHaulNetRootUrl + "/publications/search_advanced.aspx"} className="reports_tab">Publication</a></li>
+                    <li><a href={uHaulNetRootUrl +
+                          "/login_main.aspx?ReturnURL=https://videos.uhaul.com&relaystate=/"} className="reports_tab">Multimedia</a></li>
+                    <li><a href={uHaulNetRootUrl + "/tools/"} className="reports_tab">Tools</a></li>
+                    <li><a href={uHaulNetRootUrl + "/hr/"} className="reports_tab">HR</a></li>
+                    <li><a href={uHaulNetRootUrl + "/links/"} className="reports_tab">Links</a></li>
+                    <li><a href={uHaulNetRootUrl + "/AspNetForums/"} className="reports_tab">Boards</a></li>
+                    <li><a href={uHaulNetRootUrl + "/Sustainability/"} className="reports_tab">Sustainability</a></li>
+                    <li><a href={uHaulNetRootUrl + "/contact/crosscontact"} className="reports_tab">Cross Contact</a></li>
+                  </ul>
+                </section>              
+            </nav>
+          </div>
+        </div>
+        <div className="user">
+          <div className="username">Trung Tran</div>
+          <div className="user-functions">
+            <ul>
+              <li>
+                <a href="/add_link.aspx" target="_blank">
+                  Add to Links
+                </a>
+              </li>
+              <li>
+                <a href="javascript:window.print();">Print</a>
+              </li>
+              <li>
+                <a href='/logout'>Sign Out</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <Menu style={{ marginTop: "1em" }}>
+        <Menu.Item header>
+          <a href="https://uhauld.net/home/">Moving Help Admin Home</a>
+        </Menu.Item>
+        <Menu.Item name="Orders">
+          <a href="https://uhauld.net/home/">Orders</a>
+        </Menu.Item>
+        <Menu.Item name="Helpers">
+          <a href="https://uhauld.net/home/">Helpers</a>
+        </Menu.Item>
+        <Menu.Item name="Reports" as={NavLink} to="/reports" />
+        <Menu.Item name="Admin">
+          <a href="https://uhauld.net/home/">Admin</a>
+        </Menu.Item>
       </Menu>
-
-      <Menu>
-        <Container>
-          <Menu.Item name="Home" as={NavLink} to="/${reportName}" />
-          <Menu.Item name="Orders">
-            <a href="https://uhauld.net/home/">Orders</a>
-          </Menu.Item>
-          <Menu.Item name="Helpers">
-            <a href="https://uhauld.net/home/">Helpers</a>
-          </Menu.Item>
-          <Menu.Item name="Reports">
-            <a href="https://uhauld.net/home/">Reports</a>
-          </Menu.Item>
-          <Menu.Item name="Admin">
-            <a href="https://uhauld.net/home/">Admin</a>
-          </Menu.Item>
-        </Container>
-      </Menu>
-    </div>
+    </Container>
   );
 };
 

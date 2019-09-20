@@ -6,44 +6,18 @@ import { Route } from "react-router-dom";
 import NavBar from "../../features/nav/NavBar";
 import HomePage from '../../features/home/HomePage';
 import TippingExceptions from "../../features/reports/tipping-exceptions/TippingExceptions";
+import Reports from "../../features/reports/Reports";
 
 const App = () => {
-  //const reportsStore = useContext(TippingExceptionsReportStore);  
-  //const {recordCount} = reportsStore; 
- 
-  //if (loading) return <LoadingComponent content='Retrieving data...' />
-  /*
-  useEffect(() => {
-    agent.TippingExceptions.list({fromDate:'01/01/2019',toDate:'12/31/2019'})
-    .then(response => {
-      setTippingExceptions(response)
-    });      
-   
-  },[]);
-*/
-  {
-    /*
-      componentDidMount() {  
-    /*
-        axios.post('http://localhost:60127/api/authenticate',    
-        { withCredentials: true })
-        .then(response => {
-          this.setState(
-            {
-              reportData: response.data
-            })
-        });
-    
-     
-      }
-    */
+  {   
     return (
       <Fragment>
         <NavBar />
         <Container style={{ marginTop: "1em" }}>
           <Route exact path='/:requestedFunction' component={HomePage} />
           <Route exact path='/' component={HomePage} /> 
-          <Route exact path='/reports/tippingexceptions' component={TippingExceptions} />             
+          <Route exact path='/reports/tippingexceptions' component={TippingExceptions} />    
+          <Route exact path='/reports' component={Reports} />           
         </Container>
       </Fragment>
     );

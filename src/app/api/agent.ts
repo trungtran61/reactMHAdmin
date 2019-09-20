@@ -1,8 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 import { ITippingException, ITippingExceptionDates } from '../models/tippingexception';
 import { IUser } from '../models/user';
+import { AppConfiguration } from "read-appsettings-json";
 
-axios.defaults.baseURL = 'http://localhost:60127/api';
+const apiEndPoint = AppConfiguration.Setting().apiEndPoint;
+axios.defaults.baseURL = `${apiEndPoint}/api`;
 axios.interceptors.request.use((config) => {
     const token = window.localStorage.getItem('MHAdminToolJWT');
     if (token) 
