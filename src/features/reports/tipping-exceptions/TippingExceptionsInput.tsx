@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { Form, Button } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
-import TippingExceptionsReportStore from "../../../app/stores/tippingExceptionsReportStore";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 
 const TippingExceptionsInput: React.FC = () => {

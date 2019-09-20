@@ -1,20 +1,36 @@
 import React, { useContext, useEffect } from 'react';
 import { Container, Menu } from 'semantic-ui-react';
 import { RootStoreContext } from '../../app/stores/rootStore';
-import { NavLink } from 'react-router-dom';
+import { NavLink, RouteComponentProps } from 'react-router-dom';
 
-const HomePage = () => {
+interface HomeParams {
+  requestedFunction: string
+}
+
+const HomePage: React.FC<RouteComponentProps<HomeParams>> = ({match, history}) => {
     const rootStore = useContext(RootStoreContext);
     const { login, user } = rootStore.userStore;  
+    const requestedFunction = match.params.requestedFunction; 
+    const token = window.localStorage.getItem('MHAdminToolJWT'); 
 
-    useEffect(() => {        
+    useEffect(() => {   
         login().then ((result) => {
           if (result)
-            if (result.request.status != 200)
-              window.location.replace('https://uhauld.net')          
+          {
+            if (result.request.status !== 200)
+              window.location.replace('https://uhauld.net');       
+          }
+          else
+          {
+            if (token && requestedFunction)  
+            {
+              const routeUrl = '/' + requestedFunction.replace('|','/');            
+              history.push(routeUrl);
+            }
+          }                    
         });
       }, []);
-      
+   
     return (       
          <Container style={{ marginTop: "1em" }}>
             <h1>Home</h1>        

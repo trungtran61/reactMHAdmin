@@ -50,11 +50,7 @@ const NavBar: React.FC = () => {
           <Menu.Item name="Cross Contact">
             <a href="https://uhauld.net/home/">Cross Contact</a>
           </Menu.Item>
-          <Menu.Item position='right'>             
-              <Dropdown >
-                <Dropdown.Item onClick={logout} text='Logout' icon='power' />
-              </Dropdown>
-           </Menu.Item>
+          <Menu.Item position='right' onClick={logout} text='Logout' icon='power' />                              
         </Container>
       </Menu>
 

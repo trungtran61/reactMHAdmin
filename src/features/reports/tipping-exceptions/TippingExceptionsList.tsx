@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Table, Container } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
-import MHAdminReportsStore from "../../../app/stores/tippingExceptionsReportStore";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 
 const TippingExceptionsList: React.FC = ({  

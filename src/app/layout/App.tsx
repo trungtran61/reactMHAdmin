@@ -41,8 +41,9 @@ const App = () => {
       <Fragment>
         <NavBar />
         <Container style={{ marginTop: "1em" }}>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/TippingExceptions' component={TippingExceptions} />
+          <Route exact path='/:requestedFunction' component={HomePage} />
+          <Route exact path='/' component={HomePage} /> 
+          <Route exact path='/reports/tippingexceptions' component={TippingExceptions} />             
         </Container>
       </Fragment>
     );
